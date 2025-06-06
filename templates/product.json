@@ -224,7 +224,7 @@
               "type": "text",
               "name": "Product description",
               "settings": {
-                "text": "{{ closest.product.description }}",
+                "text": "<p>{{ closest.product.description }}</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -407,10 +407,20 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "recently_viewed_FgWzny": {
+      "type": "recently-viewed",
+      "name": "Recently Viewed",
+      "settings": {
+        "section_title": "Recently Viewed",
+        "empty_message": "No recently viewed products yet.",
+        "max_products": 4
+      }
     }
   },
   "order": [
     "main",
-    "product_recommendations_qggXJq"
+    "product_recommendations_qggXJq",
+    "recently_viewed_FgWzny"
   ]
 }
