@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "type": "header",
   "name": "t:names.header",
@@ -48,7 +39,9 @@
           "type": "_header-logo",
           "static": true,
           "settings": {
-            "hide_logo_on_home_page": false,
+            "hide_logo_on_home_page": true,
+            "custom_height": 40,
+            "custom_height_mobile": 12,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -109,10 +102,54 @@
         "enable_transparent_header_collection": false,
         "collection_color_scheme": "default"
       }
+    },
+    "header_announcements_T7gKz8": {
+      "type": "header-announcements",
+      "blocks": {
+        "announcement_MkrAWA": {
+          "type": "_announcement",
+          "settings": {
+            "text": "Free Shipping on Orders $50+ and International $100+",
+            "link": "",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "announcement_npLBMP": {
+          "type": "_announcement",
+          "name": "t:names.announcement",
+          "settings": {
+            "text": "100% OF NET PROCEEDS on the ph Adjusting Lip balm for LA WILDFIRE RELIEF.",
+            "link": "",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "announcement_MkrAWA",
+        "announcement_npLBMP"
+      ],
+      "name": "t:names.announcement_bar",
+      "settings": {
+        "speed": 5,
+        "section_width": "page-width",
+        "divider_width": 0,
+        "padding-block-start": 15,
+        "padding-block-end": 15
+      }
     }
   },
   "order": [
-    "header_announcements_9jGBFp",
+    "header_announcements_T7gKz8",
     "header_section"
   ]
 }
