@@ -19,8 +19,15 @@ body {
   --hover-shadow-color: var(--color-shadow);
   --hover-transition-duration: 0.25s;
   --hover-transition-timing: ease-out;
-  --surface-transition-duration: 0.3s;
-  --surface-transition-timing: var(--ease-out-quad);
+  --font-paragraph--family: 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+  --font-h1--family: 'Editor\'s Note', 'Helvetica Neue', system-ui, sans-serif;
+  --font-h2--family: 'Editor\'s Note', 'Helvetica Neue', system-ui, sans-serif;
+  --font-h3--family: 'Helvetica Neue', system-ui, sans-serif;
+  --font-h4--family: 'Helvetica Neue', system-ui, sans-serif;
+  --font-h5--family: 'Helvetica Neue', system-ui, sans-serif;
+  --font-h6--family: 'Helvetica Neue', system-ui, sans-serif;
+  --button-font-family-primary: 'Helvetica Neue', system-ui, sans-serif;
+  --button-font-family-secondary: 'Helvetica Neue', system-ui, sans-serif;
 }
 
 html {
@@ -4253,33 +4260,59 @@ text-component {
   box-shadow: none;
 }
 
-/* Prevent iOS zoom on input focus by ensuring minimum 16px font size on mobile */
-@media screen and (max-width: 1200px) {
-  input,
-  textarea,
-  select,
-  /* Higher specificity to override type preset classes like .paragraph, .h1, etc. */
-  .paragraph.paragraph input,
-  .paragraph.paragraph textarea,
-  .paragraph.paragraph select,
-  .h1.h1 input,
-  .h1.h1 textarea,
-  .h1.h1 select,
-  .h2.h2 input,
-  .h2.h2 textarea,
-  .h2.h2 select,
-  .h3.h3 input,
-  .h3.h3 textarea,
-  .h3.h3 select,
-  .h4.h4 input,
-  .h4.h4 textarea,
-  .h4.h4 select,
-  .h5.h5 input,
-  .h5.h5 textarea,
-  .h5.h5 select,
-  .h6.h6 input,
-  .h6.h6 textarea,
-  .h6.h6 select {
-    font-size: max(1rem, 100%);
-  }
+/* Custom Font Definitions */
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('HelveticaNeue-Regular.woff2') format('woff2'),
+       url('HelveticaNeue-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('HelveticaNeue-Bold.woff2') format('woff2'),
+       url('HelveticaNeue-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('HelveticaNeue-Light.woff2') format('woff2'),
+       url('HelveticaNeue-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Editor\'s Note';
+  src: url('Editor_sNote-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Editor\'s Note';
+  src: url('Editor_sNote-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Override theme fonts with your custom fonts */
+:root {
+  --font-paragraph--family: 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+  --font-h1--family: 'Editor\'s Note', 'Helvetica Neue', system-ui, sans-serif;
+  --font-h2--family: 'Editor\'s Note', 'Helvetica Neue', system-ui, sans-serif;
+  --font-h3--family: 'Helvetica Neue', system-ui, sans-serif;
+  --font-h4--family: 'Helvetica Neue', system-ui, sans-serif;
+  --font-h5--family: 'Helvetica Neue', system-ui, sans-serif;
+  --font-h6--family: 'Helvetica Neue', system-ui, sans-serif;
+  --button-font-family-primary: 'Helvetica Neue', system-ui, sans-serif;
+  --button-font-family-secondary: 'Helvetica Neue', system-ui, sans-serif;
 }
