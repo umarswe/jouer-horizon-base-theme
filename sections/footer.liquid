@@ -34,10 +34,8 @@
     "
     style="
       {%  render 'spacing-style', settings: section.settings %}
-      --footer-gap: {{ section.settings.gap }}px;
-      --grid-columns: {{ grid_columns }};
-      --last-row-count: {{ last_row_count }};
-      --tablet-last-row-count: {{ tablet_last_row_count }};
+      padding-left: 10rem;
+      padding-right: 10rem;
     "
   >
     {% content_for 'blocks' %}
