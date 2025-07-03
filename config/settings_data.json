@@ -9,8 +9,7 @@
  */
  {
   "current": {
-    "logo_height": 36,
-    "logo_height_mobile": 28,
+    "logo": "shopify://shop_images/jouer_logo_black.avif",
     "type_body_font": "inter_n4",
     "type_subheading_font": "inter_n5",
     "type_heading_font": "inter_n7",

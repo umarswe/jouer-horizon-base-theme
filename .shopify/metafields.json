@@ -1,0 +1,96 @@
+{
+  "article": [],
+  "blog": [],
+  "brand": [],
+  "collection": [],
+  "company": [],
+  "company_location": [],
+  "location": [],
+  "market": [],
+  "order": [],
+  "page": [],
+  "product": [
+    {
+      "key": "color-pattern",
+      "namespace": "shopify",
+      "name": "Color",
+      "description": "Defines the primary color or pattern, such as blue or striped",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "product-certifications-standards",
+      "namespace": "shopify",
+      "name": "Product certifications & standards",
+      "description": "Indicates the certifications or standards a product meets, such as organic or cruelty free",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "lip-gloss-effect",
+      "namespace": "shopify",
+      "name": "Lip gloss effect",
+      "description": "Describes the effect or finish a lip gloss provides, e.g. smoothing, plumping",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "makeup-features",
+      "namespace": "shopify",
+      "name": "Makeup features",
+      "description": "Highlights key characteristics of cosmetics, such as high pigmentation or fragrance-free",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "target-gender",
+      "namespace": "shopify",
+      "name": "Target gender",
+      "description": "Identifies the intended gender for a product, such as female, male or unisex",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "product-form",
+      "namespace": "shopify",
+      "name": "Product form",
+      "description": "Defines the format or presentation of a product, typically for health and beauty; e.g. lotion, serum",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "package-type",
+      "namespace": "shopify",
+      "name": "Package type",
+      "description": "Defines the type of packaging for a product, e.g. jar, pump",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "cosmetic-finish",
+      "namespace": "shopify",
+      "name": "Cosmetic finish",
+      "description": "Defines the cosmetic finish of a product, e.g. matte, natural",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    }
+  ],
+  "variant": [],
+  "shop": []
+}
