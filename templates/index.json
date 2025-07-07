@@ -627,11 +627,11 @@
         "text_W3RJ46": {
           "type": "text",
           "settings": {
-            "text": "<h2>Jouer (jhoo-ay) means “to play” in French. To us it means serious skincare and makeup for those who think beauty should be playful.</h2>",
+            "text": "<h3>Jouer (jhoo-ay) means “to play” in French. To us it means serious skincare and makeup for those who think beauty should be playful.</h3>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "center",
-            "type_preset": "h2",
+            "type_preset": "h3",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",

@@ -223,32 +223,6 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "text_G64Hwc": {
-                  "type": "text",
-                  "name": "t:names.heading",
-                  "settings": {
-                    "text": "<h2><em>Let's Connect</em></h2>",
-                    "width": "fit-content",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
                 "email_signup_M9XGkn": {
                   "type": "email-signup",
                   "name": "t:names.email_signup",
@@ -269,7 +243,8 @@
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "padding-inline-end": 0,
+                    "title": "Let's Connect"
                   },
                   "blocks": {}
                 },
@@ -361,7 +336,6 @@
                 }
               },
               "block_order": [
-                "text_G64Hwc",
                 "email_signup_M9XGkn",
                 "footer_utilities_Upq6qa"
               ]
