@@ -1,0 +1,293 @@
+<!-- Load Slick CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+<!-- Load jQuery and Slick JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+{% style %}
+  .reviews-section-wrapper {
+      background-color: {{ section.settings.background_color }};
+      --text-color: {{ section.settings.text_color }};
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .reviews__heading {
+      text-align: center;
+      font-size: 1.4rem;
+      line-height: normal;
+      color: var(--text-color);
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+  }
+
+  .reviews__slider {
+      max-width: 100%;
+      margin: 0 auto;
+  }
+
+  .review {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 0 2rem;
+      outline: none;
+  }
+
+  .review__rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 5rem;
+  }
+
+  .review__rating svg {
+      width: 2rem;
+      height: 2rem;
+  }
+
+  .review__quote {
+      margin: 3rem auto;
+      max-width: 68rem;
+      font-family: "EditorsNote";
+      font-size: 5rem;
+      line-height: normal;
+      text-align: center;
+      letter-spacing: 2px;
+      color: var(--text-color);
+      padding: 0 2.4rem;
+      font-weight: 300;
+  }
+
+  .review__name-and-product {
+      text-align: center;
+  }
+
+  .review__name-and-product a {
+      font-weight: 400;
+  }
+
+  .reviews__footer {
+      border-top: 1px solid var(--text-color);
+      padding-top: 2.5rem;
+      margin-top: 4rem;
+  }
+
+  .reviews__footer-message {
+      text-align: center;
+      padding: 0 2.4rem;
+  }
+
+  /* Slick slider customization */
+  .reviews__slider .slick-dots {
+      bottom: -50px;
+  }
+
+  .reviews__slider .slick-dots li button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(57, 57, 57, 0.3);
+      border: none;
+  }
+
+  .reviews__slider .slick-dots li.slick-active button {
+      background-color: var(--text-color);
+  }
+
+  .reviews__slider .slick-dots li button:before {
+      display: none;
+  }
+
+  .reviews__slider .slick-arrow {
+      display: none !important;
+  }
+
+  @media (max-width: 999px) {
+      .reviews-section-wrapper {
+          padding-top: 4rem;
+          padding-bottom: 2.4rem;
+      }
+
+      .review__quote {
+          margin: 2.4rem auto;
+          font-size: 3.4rem;
+      }
+
+      .reviews__footer-message {
+          font-size: 1.1rem;
+      }
+
+      .review {
+          padding: 0 1rem;
+      }
+  }
+{% endstyle %}
+
+<div class="reviews-section-wrapper">
+  <h2 class="reviews__heading">{{ section.settings.heading }}</h2>
+  
+  {% if section.blocks.size > 0 %}
+    <div class="reviews__slider">
+      {% for block in section.blocks %}
+        <div class="review">
+          <div class="review__rating" aria-label="Rating: {{ block.settings.rating }} out of 5">
+            {% for i in (1..5) %}
+              {% if i <= block.settings.rating %}
+                {% render 'icon-review-star' %}
+              {% else %}
+                {% render 'icon-review-star' %}
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="review__quote">{{ block.settings.quote }}</div>
+          <div class="review__name-and-product rte">
+            {{ block.settings.name_and_product }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div class="reviews__footer">
+    <div class="reviews__footer-message rte">
+      {{ section.settings.footer_message }}
+    </div>
+  </div>
+</div>
+
+<script>
+// Wait for jQuery and Slick to be available
+function initializeSlider() {
+  if (typeof jQuery !== 'undefined' && typeof jQuery.fn.slick !== 'undefined') {
+    jQuery(document).ready(function($) {
+      $('.reviews__slider').slick({
+        dots: true,
+        infinite: true,
+        speed: 500,
+        fade: true,
+        cssEase: 'linear',
+        autoplay: true,
+        autoplaySpeed: {{ section.settings.autoplay_speed | times: 1000 }},
+        arrows: false,
+        adaptiveHeight: true,
+        pauseOnHover: true,
+        pauseOnFocus: true
+      });
+    });
+  } else {
+    // If jQuery or Slick not ready, try again in 100ms
+    setTimeout(initializeSlider, 100);
+  }
+}
+
+// Start trying to initialize
+initializeSlider();
+</script>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What they say about Jouer"
+    },
+    {
+      "type": "richtext",
+      "id": "footer_message",
+      "label": "Footer message",
+      "default": "<p>CLEAN. VEGAN. LEAPING BUNNY CERTIFIED. CRUELTY FREE</p>"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed (seconds)",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#d8b8b3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#393939"
+    },
+    {
+      "type": "number",
+      "id": "padding_top",
+      "label": "Padding top",
+      "default": 50
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "default": 50
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "name_and_product",
+          "label": "Name and Product"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "quote",
+          "label": "Quote",
+          "default": "I love this product! It's so easy to use and the results are amazing."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "name_and_product": "<p>Jane Doe, Jouer Foundation</p>",
+            "quote": "I love this product! It's so easy to use and the results are amazing.",
+            "rating": 5
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name_and_product": "<p>John Doe, Jouer Lipstick</p>",
+            "quote": "I love this product! It's so easy to use and the results are amazing.",
+            "rating": 5
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

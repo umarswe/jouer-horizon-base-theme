@@ -315,5 +315,10 @@
       "sold_out": "Sold out",
       "unavailable": "Unavailable"
     }
+  },
+  "sections": {
+    "reviews": {
+      "empty_state": "No reviews to display yet. Add some review blocks to get started."
+    }
   }
 }

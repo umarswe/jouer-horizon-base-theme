@@ -681,6 +681,39 @@
         "padding-block-start": 64,
         "padding-block-end": 64
       }
+    },
+    "section_reviews_BQn9xy": {
+      "type": "section-reviews",
+      "blocks": {
+        "review_7QBxUh": {
+          "type": "review",
+          "settings": {
+            "name_and_product": "<p>April S.<br/><a href=\"/products/soft-focus-hydrate-set-powder\" title=\"Soft Focus\">SOFT FOCUS PRESSED SETTING POWDER</a></p>",
+            "quote": "Makes skin look so smooth!",
+            "rating": 5
+          }
+        },
+        "review_qXjVFN": {
+          "type": "review",
+          "settings": {
+            "name_and_product": "<p>Terrie M.<br/><a href=\"/products/essential-high-coverage-concealer-pen\" title=\"Essential Concealer Pen\">ESSENTIAL CONCEALER PEN</a></p>",
+            "quote": "Best concealer for over 55 skin.",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "review_7QBxUh",
+        "review_qXjVFN"
+      ],
+      "name": "Reviews",
+      "settings": {
+        "heading": "What they say about Jouer",
+        "background_color": "#d8b8b3",
+        "text_color": "#393939",
+        "padding_top": 50,
+        "padding_bottom": 50
+      }
     }
   },
   "order": [
@@ -689,6 +722,7 @@
     "section_RfebTb",
     "hero_ELtVcy",
     "hero_TMHEMK",
-    "section_dfpngR"
+    "section_dfpngR",
+    "section_reviews_BQn9xy"
   ]
 }
