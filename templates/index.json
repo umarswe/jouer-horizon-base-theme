@@ -75,10 +75,10 @@
         "section_width": "page-width",
         "section_height": "large",
         "section_height_custom": 50,
-        "color_scheme": "scheme-6",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
+        "color_scheme": "scheme-1",
+        "toggle_overlay": false,
+        "overlay_color": "#00000014",
+        "overlay_style": "gradient",
         "gradient_direction": "to bottom",
         "blurred_reflection": false,
         "reflection_opacity": 75,
@@ -325,6 +325,22 @@
         "color_scheme": "scheme-1",
         "padding-block-start": 48,
         "padding-block-end": 48
+      }
+    },
+    "section_collection_with_banner_BzK9E3": {
+      "type": "section-collection-with-banner",
+      "name": "Collection with Banner",
+      "settings": {
+        "collection_image": "shopify://shop_images/Face_Collection_Launch_1.webp",
+        "title": "Face",
+        "subtitle": "Collection",
+        "collection": "frontpage",
+        "heading_color": "",
+        "subtitle_color": "",
+        "cta_text": "Shop all",
+        "cta_url": "shopify://collections",
+        "products_limit": 8,
+        "banner_position": "bottom-left"
       }
     },
     "hero_ELtVcy": {
@@ -709,6 +725,8 @@
       "name": "Reviews",
       "settings": {
         "heading": "What they say about Jouer",
+        "footer_message": "<p>CLEAN. VEGAN. LEAPING BUNNY CERTIFIED. CRUELTY FREE</p>",
+        "autoplay_speed": 5,
         "background_color": "#d8b8b3",
         "text_color": "#393939",
         "padding_top": 50,
@@ -720,6 +738,7 @@
     "hero_jVaWmY",
     "product_list_qU3bEB",
     "section_RfebTb",
+    "section_collection_with_banner_BzK9E3",
     "hero_ELtVcy",
     "hero_TMHEMK",
     "section_dfpngR",

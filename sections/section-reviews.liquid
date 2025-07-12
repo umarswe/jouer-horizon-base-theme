@@ -34,6 +34,8 @@
       width: 100%;
       padding: 0 2rem;
       outline: none;
+      min-height: 300px; /* Ensure consistent height */
+      justify-content: center; /* Center content vertically */
   }
 
   .review__rating {
@@ -83,6 +85,8 @@
   /* Slick slider customization */
   .reviews__slider .slick-dots {
       bottom: -50px;
+      margin-top: 5rem;
+      margin-bottom: 2rem;
   }
 
   .reviews__slider .slick-dots li button {
@@ -122,6 +126,7 @@
 
       .review {
           padding: 0 1rem;
+          min-height: 300px; /* Consistent height for mobile */
       }
   }
 {% endstyle %}
@@ -172,7 +177,6 @@ function initializeSlider() {
         autoplay: true,
         autoplaySpeed: {{ section.settings.autoplay_speed | times: 1000 }},
         arrows: false,
-        adaptiveHeight: true,
         pauseOnHover: true,
         pauseOnFocus: true
       });
