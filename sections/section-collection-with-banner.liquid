@@ -1,16 +1,54 @@
 {{ 'section-collection-with-banner.css' | asset_url | stylesheet_tag }}
 
+<script
+  src="{{ 'slideshow.js' | asset_url }}"
+  type="module"
+></script>
+
 <style>
+  .collection-with-banner--{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
   .collection__banner-content {
     position: absolute;
     width: 100%;
     height: 100%;
   }
+
+  .collection-with-banner__content {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .collection-with-banner__products {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .collection-with-banner__products .resource-list__carousel {
+    --column-count: {{ section.settings.desktop_columns }};
+    --column-count-mobile: {{ section.settings.mobile_columns }};
+    --resource-list-column-gap: {{ section.settings.columns_gap }}px;
+    --slide-width-max: 300px;
+  }
+
+  @media (max-width: 749px) {
+    .collection-with-banner__products .resource-list__carousel {
+      --column-count: {{ section.settings.mobile_columns }};
+    }
+  }
+
+  .collection-with-banner__content--right {
+    flex-direction: row-reverse;
+  }
 </style>
 
-<div class="collection-with-banner">
+<div class="collection-with-banner collection-with-banner--{{ section.id }}">
   <div class="collection-with-banner__container">
-    <div class="collection-with-banner__content">
+    <div class="collection-with-banner__content {% if section.settings.banner_position == 'right' %} collection-with-banner__content--right {% endif %}">
       <div class="collection__banner">
         <div class="collection__banner-image">
           {%- if section.settings.collection_image -%}
@@ -51,13 +89,105 @@
           </div>
         </div>
       </div>
-      <div class="collection-card-list">
-        {%- for product in section.settings.collection.products limit: section.settings.products_limit -%}
-          <div class="collection-card-list__item">
-            {% render 'product-card', product: product %}
+      
+      {%- if section.settings.collection != blank and section.settings.collection.products.size > 0 -%}
+        <div class="collection-with-banner__products">
+          {% case section.settings.layout %}
+            {% when 'grid' %}
+              <div class="collection-card-list">
+                {%- for product in section.settings.collection.products -%}
+                  <div class="collection-card-list__item">
+                    <a href="{{ product.url }}" class="product-card-custom">
+                      {%- if product.featured_media -%}
+                        <img
+                          src="{{ product.featured_media | image_url: width: 500 }}"
+                          alt="{{ product.featured_media.alt | escape }}"
+                          class="product-card-custom__image"
+                          width="285"
+                          height="285"
+                          loading="lazy"
+                        >
+                      {%- else -%}
+                        <div class="product-card-custom__image" style="background-color: #f8f8f8; display: flex; align-items: center; justify-content: center; color: #999;">
+                          No image
+                        </div>
+                      {%- endif -%}
+                      <div class="product-card-custom__content">
+                        <h3 class="product-card-custom__title">{{ product.title }}</h3>
+                        <div class="product-card-custom__vendor">{{ product.vendor }}</div>
+                        <div class="product-card-custom__price">
+                          <a href="{{ product.url }}" class="button button-secondary">
+                            <span class="collection-card-list__button-text">ADD TO BAG | {{ product.price | money }}</span>
+                          </a>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                {%- endfor -%}
+              </div>
+            {% when 'carousel' %}
+              {% capture list_items %}
+                {%- for product in section.settings.collection.products -%}
+                  <div class="resource-list__item">
+                    <a href="{{ product.url }}" class="product-card-custom">
+                      {%- if product.featured_media -%}
+                        <img
+                          src="{{ product.featured_media | image_url: width: 500 }}"
+                          alt="{{ product.featured_media.alt | escape }}"
+                          class="product-card-custom__image"
+                          width="285"
+                          height="285"
+                          loading="lazy"
+                        >
+                      {%- else -%}
+                        <div class="product-card-custom__image" style="background-color: #f8f8f8; display: flex; align-items: center; justify-content: center; color: #999;">
+                          No image
+                        </div>
+                      {%- endif -%}
+                      <div class="product-card-custom__content">
+                        <h3 class="product-card-custom__title">{{ product.title }}</h3>
+                        <div class="product-card-custom__vendor">{{ product.vendor }}</div>
+                        <div class="product-card-custom__price">
+                          <a href="{{ product.url }}" class="button button-secondary collection-card-list__button">
+                            <span class="collection-card-list__button-text">ADD TO BAG | {{ product.price | money }}</span>
+                          </a>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  {% unless forloop.last %}
+                    <!--@list/split-->
+                  {% endunless %}
+                {%- endfor -%}
+              {% endcapture %}
+
+              {% liquid
+                assign list_items_array = list_items | strip | split: '<!--@list/split-->'
+                assign slide_count = section.settings.collection.products.size | at_most: section.settings.products_limit
+              %}
+
+              {% render 'resource-list-carousel',
+                ref: 'collectionBannerCarousel',
+                slides: list_items_array,
+                slide_count: slide_count,
+                settings: section.settings,
+                slide_width_max: '300px'
+              %}
+          {% endcase %}
+        </div>
+      {%- else -%}
+        <div class="collection-with-banner__products">
+          <div class="collection-card-list">
+            <p style="text-align: center; color: #999; grid-column: 1 / -1;">
+              {%- if section.settings.collection == blank -%}
+                Please select a collection to display products.
+              {%- else -%}
+                No products found in this collection.
+              {%- endif -%}
+            </p>
           </div>
-        {%- endfor -%}
-      </div>
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </div>
@@ -97,6 +227,22 @@
       "label": "Subtitle Color"
     },
     {
+      "type": "select",
+      "id": "banner_position",
+      "label": "Banner Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
       "type": "text",
       "id": "cta_text",
       "label": "CTA Text"
@@ -114,6 +260,168 @@
       "max": 12,
       "step": 1,
       "default": 4
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        }
+      ],
+      "default": "carousel"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding Top Mobile",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding Bottom Mobile",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings",
+      "visible_if": "{{ section.settings.layout == 'carousel' }}"
+    },
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "label": "Desktop Columns",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "visible_if": "{{ section.settings.layout == 'carousel' }}"
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Mobile Columns",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 Column"
+        },
+        {
+          "value": "2",
+          "label": "2 Columns"
+        }
+      ],
+      "default": "2",
+      "visible_if": "{{ section.settings.layout == 'carousel' }}"
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "label": "Columns Gap",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ section.settings.layout == 'carousel' }}"
+    },
+    {
+      "type": "select",
+      "id": "icons_style",
+      "label": "Arrow Style",
+      "options": [
+        {
+          "value": "arrow",
+          "label": "Arrows"
+        },
+        {
+          "value": "chevron",
+          "label": "Chevrons"
+        },
+        {
+          "value": "arrows_large",
+          "label": "Large Arrows"
+        },
+        {
+          "value": "chevron_large",
+          "label": "Large Chevrons"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "arrow",
+      "visible_if": "{{ section.settings.layout == 'carousel' }}"
+    },
+    {
+      "type": "select",
+      "id": "icons_shape",
+      "label": "Arrow Shape",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        }
+      ],
+      "default": "circle",
+      "visible_if": "{{ section.settings.layout == 'carousel' }}"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section Width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "Page Width"
+        },
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        }
+      ],
+      "default": "page-width"
     }
   ],
   "presets": [
