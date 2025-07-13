@@ -1,0 +1,233 @@
+{% doc %}
+  Renders simple category filters
+
+  @param {object} results - The search results object
+  @param {number} results_size - The number of products in the search results
+{% enddoc %}
+
+{%- liquid
+  assign products_count = results_size
+  assign sort_by = results.sort_by | default: results.default_sort_by
+  assign current_tags = collection.current_tags | default: empty
+  assign current_collection = collection.handle | default: 'all'
+
+  # Define our custom categories
+  assign categories = 'Lips,Face,Eye,Cheek,Skincare,Accessories,All' | split: ','
+
+  # Get base collection URL for filtering
+  if collection.url
+    assign base_url = collection.url
+  else
+    assign base_url = routes.collections_url | append: '/all'
+  endif
+-%}
+
+<div class="custom-category-filters{% if block.settings.inherit_color_scheme == false %} color-{{ block.settings.color_scheme }}{% endif %}">
+  <div
+    class="custom-category-filters__wrapper"
+    style="--padding-block-start: {{ block.settings.padding-block-start }}px; --padding-block-end: {{ block.settings.padding-block-end }}px;"
+  >
+    <div class="custom-category-filters__container">
+      <div class="custom-category-filters__title">
+        <h3>The Best Sellers From Every Category</h3>
+      </div>
+      <ul class="custom-category-filters__list">
+        {% for category in categories %}
+          {% liquid
+            assign is_active = false
+            assign filter_url = ''
+
+            if category == 'All'
+              if current_collection == 'all'
+                assign is_active = true
+              endif
+              assign filter_url = routes.collections_url | append: '/all'
+            else
+              assign category_lower = category | downcase
+              if current_collection == category_lower
+                assign is_active = true
+              endif
+              assign filter_url = routes.collections_url | append: '/' | append: category_lower
+            endif
+          %}
+          <li class="custom-category-filters__item">
+          <a
+            class="custom-category-filters__link"
+            href="{{ filter_url }}"
+            class="custom-category-filters__item{% if is_active %} custom-category-filters__item--active{% endif %}"
+            {% if is_active %}
+              aria-current="page"
+            {% endif %}
+          >
+            {{ category }}
+          </a>
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% comment %}
+        <div class="custom-category-filters__count">
+          <span class="custom-category-filters__count-text">
+            {{ 'content.item_count' | t: count: products_count }}
+          </span>
+        </div>
+
+        {% if block.settings.enable_sorting %}
+          <div class="custom-category-filters__sorting">
+            {% render 'sorting',
+              results: results,
+              sort_by: sort_by,
+              filter_style: 'horizontal',
+              suffix: 'desktop',
+              should_use_select_on_mobile: false,
+              section_id: section.id
+            %}
+          </div>
+        {% endif %}
+      {% endcomment %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .custom-category-filters__title h3 {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+    font-style: normal;
+    text-transform: capitalize;
+    color: #393939;
+  }
+
+  .custom-category-filters {
+    width: 100%;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .custom-category-filters__wrapper {
+    width: 100%;
+    padding: var(--padding-block-start) 0 var(--padding-block-end) 0;
+    border-bottom: 1px solid rgb(var(--color-border));
+  }
+
+  .custom-category-filters__container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .custom-category-filters__list {
+    display: flex;
+    gap: 2.8rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  .custom-category-filters__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .custom-category-filters__link {
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 1rem;
+    letter-spacing: 1px;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: uppercase;
+    color: #393939;
+  }
+
+  .custom-category-filters__count {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  .custom-category-filters__count-text {
+    font-size: var(--font-size-sm);
+    color: rgb(var(--color-foreground-secondary));
+  }
+
+  .custom-category-filters__sorting {
+    display: flex;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .custom-category-filters__container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-sm);
+    }
+
+    .custom-category-filters__list {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .custom-category-filters__item {
+      flex: 1;
+      justify-content: center;
+      min-width: 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Custom Category Filters",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "label": "Enable sorting",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_color_scheme",
+      "label": "Inherit color scheme",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    }
+  ]
+}
+{% endschema %}

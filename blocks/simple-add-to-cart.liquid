@@ -1,0 +1,223 @@
+{% doc %}
+  This block provides add-to-cart functionality without quantity selector.
+  Intended for product cards where quantity selection is not needed.
+
+  @param {string} product - The product to add to the cart
+{% enddoc %}
+
+{% liquid
+  assign product = block.settings.product
+  if request.visual_preview_mode and product == blank
+    assign product = collections.all.products.first
+  endif
+
+  assign variant = product.selected_or_first_available_variant
+  assign inventory_quantity = variant.inventory_quantity
+  assign inventory_policy = variant.inventory_policy
+
+  if variant.inventory_management == 'shopify'
+    assign inventory_managed = true
+  endif
+
+  if variant.quantity_rule.min > variant.inventory_quantity and inventory_managed and inventory_policy == 'deny'
+    assign quantity_rule_soldout = true
+  endif
+
+  if inventory_managed
+    if inventory_quantity <= 0 and inventory_policy == 'deny' or quantity_rule_soldout
+      assign can_add_to_cart = false
+      assign add_to_cart_text = 'products.product.sold_out' | t
+    else
+      assign can_add_to_cart = true
+      assign add_to_cart_text = 'products.product.add_to_cart' | t
+    endif
+  else
+    if product.selected_or_first_available_variant != null
+      assign can_add_to_cart = true
+      assign add_to_cart_text = 'products.product.add_to_cart' | t
+    else
+      assign can_add_to_cart = false
+      assign add_to_cart_text = 'products.product.unavailable' | t
+    endif
+  endif
+
+  assign class = 'add-to-cart-button ' | append: block.settings.style_class
+  assign id = 'SimpleAddToCart-ProductSubmitButton-' | append: block.id
+%}
+
+<span
+  class="simple-add-to-cart-block simple-add-to-cart-block--{{ block.id }}"
+  {{ block.shopify_attributes }}
+>
+  {%- if product != blank -%}
+    {%- assign product_form_id = 'SimpleAddToCart-ProductForm-' | append: block.id -%}
+    <product-form-component
+      data-section-id="{{ section.id }}"
+      data-product-id="{{ product.id }}"
+      data-product-url="{{ product.url }}"
+      on:submit="/handleSubmit"
+    >
+      <div
+        class="visually-hidden"
+        aria-live="assertive"
+        role="status"
+        aria-atomic="true"
+        ref="liveRegion"
+      ></div>
+      {%- form 'product', product, id: product_form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+        <input
+          type="hidden"
+          name="id"
+          ref="variantId"
+          value="{{ product.selected_or_first_available_variant.id }}"
+        >
+        <input
+          type="hidden"
+          name="quantity"
+          value="1"
+        >
+        <div class="simple-add-to-cart-buttons">
+          <span
+            style="--add-to-cart-font-case: {{ settings.button_text_case }};"
+          >
+            {% render 'add-to-cart-button',
+              id: id,
+              class: class,
+              can_add_to_cart: can_add_to_cart,
+              product: product,
+              add_to_cart_text: add_to_cart_text
+            %}
+          </span>
+          <span
+            class="product-form-text__error hidden"
+            ref="addToCartTextError"
+          >
+            <span class="svg-wrapper product-form-icon--error">
+              {{- 'icon-error.svg' | inline_asset_content -}}
+            </span>
+          </span>
+        </div>
+      {%- endform -%}
+    </product-form-component>
+  {%- else -%}
+    <div class="simple-add-to-cart-buttons">
+      <button
+        type="submit"
+        name="add"
+        class="button"
+        disabled
+      >
+        {{ 'blocks.sold_out' | t }}
+      </button>
+    </div>
+  {%- endif -%}
+</span>
+
+{% stylesheet %}
+  .simple-add-to-cart-block {
+    width: 100%;
+  }
+
+  .simple-add-to-cart-block .add-to-cart-button {
+    width: 100%;
+    border: 1px solid #393939;
+    background: transparent;
+    font-size: 11px;
+    color: #393939;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    line-height: 12px;
+    letter-spacing: 2px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .simple-add-to-cart-block .add-to-cart-button:hover {
+    background-color: #d8b8b3;
+    border-color: #d8b8b3;
+  }
+
+  .simple-add-to-cart-block .add-to-cart-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .simple-add-to-cart-block .add-to-cart-button:disabled:hover {
+    background: transparent;
+    border-color: #393939;
+  }
+
+  .simple-add-to-cart-block .add-to-cart-text__content {
+    font-size: 11px;
+    color: #393939;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    line-height: 12px;
+    letter-spacing: 2px;
+  }
+
+  /* Hide the bag icon */
+  .simple-add-to-cart-block .add-to-cart-icon {
+    display: none !important;
+  }
+
+  /* Hide the "added" text and disable animation */
+  .simple-add-to-cart-block .add-to-cart-text--added {
+    display: none !important;
+  }
+
+  /* Disable the slide-out animation for the main text */
+  .simple-add-to-cart-block .atc-added .add-to-cart-text {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Ensure button doesn't change state visually when clicked */
+  .simple-add-to-cart-block .add-to-cart-button.atc-added {
+    background: transparent;
+    border-color: #393939;
+  }
+
+  .simple-add-to-cart-block .add-to-cart-button.atc-added:hover {
+    background-color: #d8b8b3;
+    border-color: #d8b8b3;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Simple Add to Cart",
+  "tag": null,
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:settings.product"
+    },
+    {
+      "type": "select",
+      "id": "style_class",
+      "label": "t:settings.style",
+      "options": [
+        {
+          "value": "button",
+          "label": "t:options.primary"
+        },
+        {
+          "value": "button-secondary",
+          "label": "t:options.secondary"
+        }
+      ],
+      "default": "button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Simple Add to Cart",
+      "category": "t:categories.product",
+      "settings": {
+        "product": "{{ closest.product }}",
+        "style_class": "button"
+      }
+    }
+  ]
+}
+{% endschema %} 

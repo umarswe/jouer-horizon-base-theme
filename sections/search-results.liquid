@@ -17,7 +17,7 @@
   >
     {% paginate search.results by 24 %}
       {% if search.results_count > 0 %}
-        {% content_for 'block', type: 'filters', id: 'filters', results: search, results_size: search.results_count %}
+        {% content_for 'block', type: 'custom-category-filters', id: 'filters', results: search, results_size: search.results_count %}
         {% assign products = search.results | where: 'object_type', 'product' %}
       {% else %}
         {% assign collection = settings.empty_state_collection | default: collections.all %}
