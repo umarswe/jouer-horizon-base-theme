@@ -2,7 +2,28 @@
   "article": [],
   "blog": [],
   "brand": [],
-  "collection": [],
+  "collection": [
+    {
+      "key": "display_name",
+      "namespace": "custom",
+      "name": "Display Name",
+      "description": "",
+      "type": {
+        "name": "rich_text_field",
+        "category": "TEXT"
+      }
+    },
+    {
+      "key": "display_description",
+      "namespace": "custom",
+      "name": "Display Description",
+      "description": "",
+      "type": {
+        "name": "single_line_text_field",
+        "category": "TEXT"
+      }
+    }
+  ],
   "company": [],
   "company_location": [],
   "location": [],
@@ -85,6 +106,16 @@
       "namespace": "shopify",
       "name": "Cosmetic finish",
       "description": "Defines the cosmetic finish of a product, e.g. matte, natural",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "key_ingredients_listing",
+      "namespace": "custom",
+      "name": "key ingredients listing",
+      "description": "",
       "type": {
         "name": "list.metaobject_reference",
         "category": "REFERENCE"

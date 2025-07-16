@@ -1622,7 +1622,7 @@ summary {
   align-items: center;
   cursor: pointer;
   list-style: none;
-  padding-block: var(--padding-sm);
+  padding-block: 1.2rem;
 }
 
 summary:hover {

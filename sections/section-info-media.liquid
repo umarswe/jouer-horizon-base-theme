@@ -1,0 +1,210 @@
+{% style %}
+  .section-info-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  .section-info-media__title {
+    font-size: 24px;
+    line-height: 42px;
+    letter-spacing: .8px;
+    color: #393939;
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  .section-info-media__container {
+    max-width: 140rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .section-info-media__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .section-info-media__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .section-info-media__item--top {
+    flex-direction: column-reverse;
+  }
+
+  .section-info-media__item--bottom {
+    flex-direction: column;
+  }
+
+  .section-info-media__item-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .section-info-media__item-title {
+    color: #393939;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    line-height: 2rem;
+    text-transform: uppercase;
+  }
+
+  .section-info-media__item-image{
+    width: 100%;
+  }
+
+  .section-info-media__item-description {
+    color: #393939;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  .section-info-media__video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+{% endstyle %}
+
+<div class="section-info-media section-info-media--{{ section.id }}">
+  <div class="section-info-media__container">
+    <h2 class="section-info-media__title">{{ section.settings.title }}</h2>
+    <div class="section-info-media__grid">
+      {% for block in section.blocks %}
+        <div class="section-info-media__item section-info-media__item--{{ block.settings.image_position }}">
+          <div class="section-info-media__item-image">
+            {% if block.settings.image %}
+              {{ block.settings.image | image_url: width: 500 | image_tag: class: 'section-info-media__item-image-img' }}
+            {% endif %}
+            {% if block.settings.video %}
+              {% render 'video', 
+                video: block.settings.video,
+                disable_controls: true,
+                video_autoplay: true, 
+                video_loop: true,
+                video_class: 'section-info-media__video',
+                section_id: section.id 
+              %}
+            {% endif %}
+          </div>
+          <div class="section-info-media__item-content">
+            <h2 class="section-info-media__item-title">{{ block.settings.title }}</h2>
+            <p class="section-info-media__item-description">{{ block.settings.description }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Section Info Media",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "default": 100,
+      "min": 0,
+      "max": 100,
+      "step": 2
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "default": 100,
+      "min": 0,
+      "max": 100,
+      "step": 2
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding Top Mobile",
+      "default": 50,
+      "min": 0,
+      "max": 100,
+      "step": 2
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding Bottom Mobile",
+      "default": 50,
+      "min": 0,
+      "max": 100,
+      "step": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text-media-block",
+      "name": "Text-Media Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "Image Position",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "top"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Section Info Media"
+    }
+  ]
+}
+{% endschema %}

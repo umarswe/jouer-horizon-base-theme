@@ -12,7 +12,7 @@
   assign current_collection = collection.handle | default: 'all'
 
   # Define our custom categories
-  assign categories = 'Lips,Face,Eye,Cheek,Skincare,Accessories,All' | split: ','
+  assign categories = 'Lips,Face,Eye,Cheek,Skincare,Accessories, Shop All' | split: ','
 
   # Get base collection URL for filtering
   if collection.url
@@ -29,7 +29,7 @@
   >
     <div class="custom-category-filters__container">
       <div class="custom-category-filters__title">
-        <h3>The Best Sellers From Every Category</h3>
+        <h3>{{ block.settings.description }}</h3>
       </div>
       <ul class="custom-category-filters__list">
         {% for category in categories %}
@@ -190,6 +190,12 @@
   "name": "Custom Category Filters",
   "tag": null,
   "settings": [
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "The Best Sellers From Every Category"
+    },
     {
       "type": "checkbox",
       "id": "enable_sorting",
