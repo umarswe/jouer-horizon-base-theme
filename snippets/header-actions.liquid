@@ -7,11 +7,22 @@
 <header-actions
   {{- block.shopify_attributes -}}
 >
+  <!-- Text Links: About Us and Account -->
+  <nav class="header-text-links">
+    <a href="/pages/about-us" class="header-text-link">About Us</a>
+    {% if shop.customer_accounts_enabled %}
+      <a href="{{ routes.account_url }}" class="header-text-link">Account</a>
+    {% else %}
+      <a href="{{ routes.account_login_url }}" class="header-text-link">Account</a>
+    {% endif %}
+  </nav>
+
+  <!-- Search (if customer accounts enabled) -->
   {% if shop.customer_accounts_enabled %}
-    {% render 'account-popover' %}
-    {% render 'account-drawer' %}
+    {% render 'search' %}
   {% endif %}
 
+  <!-- Cart -->
   {% if settings.cart_type == 'drawer' and template.name != 'cart' %}
     {% render 'cart-drawer' %}
   {% else %}
@@ -26,6 +37,40 @@
 </header-actions>
 
 {% stylesheet %}
+  /* Header Text Links Styling */
+  .header-text-links {
+    display: flex;
+    align-items: center;
+  }
+
+  .header-text-link {
+    font-family: "EditorsNote", sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2.1rem;
+    text-transform: var(--menu-top-level-font-case, none);
+    color: var(--menu-top-level-font-color, var(--color-foreground));
+    transition: color var(--animation-speed, 0.3s) var(--animation-easing, ease);
+    text-decoration: none;
+    display: flex;
+    min-height: var(--minimum-touch-target);
+    align-items: center;
+    padding: 0 1.2rem;
+  }
+
+  header-actions {
+    display: flex;
+    align-items: center;
+    /* gap: var(--gap-lg); */
+  }
+
+  @media screen and (width < 750px) {
+    .header-text-links {
+      display: none;
+    }
+  }
+
   .cart-drawer {
     --cart-drawer-padding: var(--padding-lg) var(--padding-xl);
     --cart-drawer-padding-desktop: var(--padding-xl) var(--padding-2xl);
@@ -216,13 +261,13 @@
   }
 
   .header-actions__action svg {
-    width: var(--icon-size-md);
-    height: var(--icon-size-md);
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
   }
 
   .header-actions__cart-icon {
     --cart-bubble-size: 20px;
-    --cart-bubble-top: 4.5px;
+    --cart-bubble-bottom: 4.5px;
     --cart-bubble-right: 2.5px;
 
     position: relative;
@@ -231,7 +276,7 @@
   .header-actions__cart-icon .cart-bubble {
     position: absolute;
     width: var(--cart-bubble-size, 20px);
-    top: var(--cart-bubble-top);
+    bottom: var(--cart-bubble-bottom);
     right: var(--cart-bubble-right);
   }
 

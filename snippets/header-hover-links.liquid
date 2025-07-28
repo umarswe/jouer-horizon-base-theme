@@ -1,0 +1,48 @@
+{% style %}
+  .header__unvisible-links {
+    border-top: 1px solid var(--color-foreground);
+    background-color: var(--color-background);
+    position: absolute;
+    width: 100%;
+    padding: 1.6rem 5rem;
+    display: none;
+  }
+
+  .header__unvisible-links.open {
+    display: flex;
+  }
+
+  .header__unvisible-links-list {
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .header__unvisible-link {
+    font-size: 1.4rem;
+    color: rgb(var(--color-foreground));
+    display: block;
+    line-height: 1.8;
+    text-decoration: none;
+    transition: text-decoration var(--duration-short) ease;
+    word-wrap: break-word;
+    font-style: normal;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+{% endstyle %}
+
+<div class="header__unvisible-links">
+  <ul class="header__unvisible-links-list">
+    {% for link in linklists.mega-menu.links %}
+    <li><a href="{{ link.url }}" class="header__unvisible-link">{{ link.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+
+<script></script>

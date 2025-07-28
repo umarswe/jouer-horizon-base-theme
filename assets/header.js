@@ -1,6 +1,7 @@
 import { calculateHeaderGroupHeight } from '@theme/critical';
 import { Component } from '@theme/component';
-import { onDocumentLoaded, changeMetaThemeColor } from '@theme/utilities';
+import { onDocumentReady, changeMetaThemeColor } from '@theme/utilities';
+import { MegaMenuHoverEvent } from './events';
 
 /**
  * @typedef {Object} HeaderComponentRefs

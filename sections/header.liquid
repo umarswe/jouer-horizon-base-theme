@@ -263,7 +263,36 @@
       {{ navigation_bar }}
     </div>
   {% endif %}
+
+  {% render 'header-hover-links' %}
+
 </header-component>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const headerComponent = document.querySelector('header-component');
+    const headerLinks = document.querySelectorAll('.menu-list__link-title');
+    const unvisibleLinks = document.querySelector('.header__unvisible-links');
+
+    headerLinks.forEach(link => {
+      const parentLink = link.closest('a, button');
+      
+      if (parentLink) {
+        parentLink.addEventListener('mouseenter', () => {
+          if (link.textContent.includes('Shop')) {
+            unvisibleLinks?.classList.add('open');
+          }
+        });
+      }
+    });
+
+    // Hide the links when leaving the entire header component
+    headerComponent?.addEventListener('mouseleave', () => {
+      unvisibleLinks?.classList.remove('open');
+    });
+  });
+</script>
+
 
 <script
   src="{{ 'header.js' | asset_url }}"
@@ -941,7 +970,7 @@
       "label": "t:settings.divider_thickness",
       "min": 0,
       "max": 5,
-      "step": 0.5,
+      "step": 0.2,
       "unit": "px",
       "default": 0,
       "visible_if": "{{ section.settings.menu_row == 'bottom' or section.settings.localization_row == 'bottom' or section.settings.search_row == 'bottom' }}"
