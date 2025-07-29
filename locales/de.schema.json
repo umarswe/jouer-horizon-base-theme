@@ -210,6 +210,7 @@
     "custom_minimum_height": "Benutzerdefinierte Mindesthöhe",
     "font_family": "Schriftartfamilie",
     "gap": "Abstand",
+    "gap_mobile": "Abstand (Mobil)",
     "geometric_translate_y": "Geometric translate Y",
     "image": "Bild",
     "image_opacity": "Deckkraft des Bilds",

@@ -1,0 +1,144 @@
+{% style %}
+  .section-richtext--{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-inline: 2.4rem;
+    max-width: {{ section.settings.section_width }};
+    margin-inline: auto;
+    text-align: {{ section.settings.text_alignment }};
+    
+    {% if section.settings.section_width == 'custom' %}
+      width: 100%;
+      max-width: {{ section.settings.custom_width }}px;
+    {% endif %}
+    
+    @media screen and (width < 768px) {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+  }
+
+  @media screen and (width < 768px) {
+    .section-richtext__content-inner * {
+      font-size: 2.8rem;
+      line-height: 3.8rem;
+    }
+  }
+{% endstyle %}
+
+<div class="section-richtext section-richtext--{{ section.id }}">
+  <div class="section-richtext__inner">
+    <div class="section-richtext__content">
+      <div class="section-richtext__content-inner">
+        {{ section.settings.richtext }}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Richtext",
+  "class": "section-richtext",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "richtext",
+      "label": "Richtext"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 2
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 2
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile Top",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 2
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile Bottom",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 2
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section Width",
+      "default": "page-width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "Page Width"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ]   
+    },
+    {
+      "type": "text",
+      "id": "custom_width",
+      "label": "Custom Width",
+      "default": "1000",
+      "visible_if": "{{ section.settings.section_width == 'custom' }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Richtext"
+    }
+  ]
+}
+{% endschema %}

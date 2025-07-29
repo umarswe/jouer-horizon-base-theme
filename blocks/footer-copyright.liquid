@@ -8,11 +8,16 @@
 </div>
 
 {% stylesheet %}
-  .footer-utilities__text{
-    font-size: 1.1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    text-transform: uppercase;
+  .policy_list {
+    display: flex;
+    gap: var(--gap-2xs) var(--gap-sm);
+    /* Depending on the content, some smaller desktop layouts will need to wrap the items to fit everything */
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @media screen and (width < 768px) {
+      justify-content: flex-start;
+    }
   }
 {% endstylesheet %}
 

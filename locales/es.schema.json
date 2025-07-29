@@ -196,6 +196,7 @@
     "favicon": "Favicon",
     "font_family": "Familia de fuentes",
     "gap": "Espacio",
+    "gap_mobile": "Espacio (Móvil)",
     "geometric_translate_y": "Traslación Y geométrica",
     "heading": "Encabezado",
     "icon": "Ícono",
