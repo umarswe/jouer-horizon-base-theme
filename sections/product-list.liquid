@@ -11,6 +11,15 @@
     section-resource-list
     spacing-style
     gap-style
+    {% if section.settings.hide_on_mobile %}
+      hidden--mobile
+    {% endif %}
+    {% if section.settings.hide_on_desktop %}
+      hidden--desktop
+    {% endif %}
+    {% if request.design_mode == false and section.settings.collection == blank %}
+      in-onboarding-state
+    {% endif %}
   "
   style="
     {% render 'spacing-style', settings: section.settings %}
@@ -96,6 +105,18 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
+    },
     {
       "type": "collection",
       "id": "collection",

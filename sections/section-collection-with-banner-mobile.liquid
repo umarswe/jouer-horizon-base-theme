@@ -1,0 +1,373 @@
+{{ 'base.css' | asset_url | stylesheet_tag }}
+
+<script
+  src="{{ 'slideshow.js' | asset_url }}"
+  type="module"
+></script>
+
+<style>
+  .collection-banner-mobile--{{ section.id }} {
+    --padding-top: {{ section.settings.padding_top }}px;
+    --padding-bottom: {{ section.settings.padding_bottom }}px;
+    --padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --gutter-slide-width: 7%;
+
+    display: none;
+
+    @media (max-width: 749px) {
+      display: block;
+    }
+  }
+
+  .collection-banner-mobile--{{ section.id }} slideshow-slide {
+    width: calc(100% - (2 * var(--gutter-slide-width)));
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: 750px) {
+    .collection-banner-mobile--{{ section.id }} {
+      padding-top: var(--padding-top);
+      padding-bottom: var(--padding-bottom);
+    }
+  }
+
+  @media (max-width: 749px) {
+    .collection-banner-mobile--{{ section.id }} {
+      padding-top: var(--padding-top-mobile);
+      padding-bottom: var(--padding-bottom-mobile);
+    }
+  }
+
+  .collection-banner-mobile .collection__banner {
+    width: 66.67vw;
+    height: 85.33vw;
+    max-width: 400px;
+    max-height: 512px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .collection-banner-mobile .collection__banner-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .collection-banner-mobile .collection__banner-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .collection-banner-mobile .collection__banner-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .collection-banner-mobile .collection__content {
+    padding: 3rem;
+    max-width: 100%;
+  }
+
+  .collection-banner-mobile .collection__title {
+    font-family: "EditorsNote", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: uppercase;
+    font-size: 3rem;
+    line-height: 3rem;
+    letter-spacing: -.8px;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .collection-banner-mobile .collection__subtitle {
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    letter-spacing: 1px;
+    color: #ffffff;
+    margin: 1.5rem 0;
+  }
+</style>
+
+{% comment %} Pagination controls removed {% endcomment %}
+
+{% capture slides %}
+  {% for block in section.blocks %}
+    {% capture slide_content %}
+      {% render 'collection-banner',
+        collection_image: block.settings.collection_image,
+        title: block.settings.title,
+        subtitle: block.settings.subtitle,
+        heading_color: block.settings.heading_color,
+        subtitle_color: block.settings.subtitle_color,
+        collection: block.settings.collection,
+        cta_text: block.settings.cta_text,
+        cta_url: block.settings.cta_url
+      %}
+    {% endcapture %}
+    
+    {% render 'slideshow-slide',
+      index: forloop.index,
+      class: 'collection-banner-slide',
+      children: slide_content,
+      attributes: block.shopify_attributes
+    %}
+  {% endfor %}
+{% endcapture %}
+
+{% liquid
+  assign slideshow_class = 'slideshow--single-media'
+  if section.blocks.size > 1
+    assign slideshow_class = ''
+  endif
+
+  assign show_arrows = true
+  if section.settings.icons_style == 'none' or section.blocks.size <= 1
+    assign show_arrows = false
+  endif
+%}
+
+<div
+  class="collection-banner-mobile collection-banner-mobile--{{ section.id }} spacing-style section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
+  {% render 'slideshow',
+    class: slideshow_class,
+    show_arrows: show_arrows,
+    icon_style: section.settings.icons_style,
+    autoplay: section.settings.autoplay,
+    autoplay_speed: section.settings.autoplay_speed,
+    infinite: true,
+    slideshow_gutters: "start end",
+    slides: slides,
+    slide_count: section.blocks.size
+  %}
+</div>
+
+{% schema %}
+{
+  "name": "Collection Carousel",
+  "class": "collection-banner-mobile-section",
+  "blocks": [
+    {
+      "type": "collection_banner",
+      "name": "Collection Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "collection_image",
+          "label": "Collection Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Collection Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Discover our latest collection"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color",
+          "label": "Subtitle Color",
+          "default": "#666666"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Button Text",
+          "default": "View All"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "icons_style",
+      "label": "Navigation",
+      "options": [
+        {
+          "value": "arrow",
+          "label": "Arrows"
+        },
+        {
+          "value": "chevron",
+          "label": "Chevrons"
+        },
+        {
+          "value": "arrows_large",
+          "label": "Large Arrows"
+        },
+        {
+          "value": "chevron_large",
+          "label": "Large Chevrons"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "arrows_large"
+    },
+
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "primary"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Speed",
+      "min": 3,
+      "max": 7,
+      "step": 1,
+      "unit": "s",
+      "default": 4,
+      "visible_if": "{{ section.settings.autoplay }}"
+    },
+    {
+      "type": "header",
+      "content": "Size"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section Width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "Page Width"
+        },
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        }
+      ],
+      "default": "page-width"
+    },
+
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Banner Carousel",
+      "category": "Collection",
+      "blocks": [
+        {
+          "type": "collection_banner",
+          "settings": {
+            "title": "New Arrivals",
+            "subtitle": "Discover our latest products",
+            "cta_text": "Shop Now"
+          }
+        },
+        {
+          "type": "collection_banner",
+          "settings": {
+            "title": "Best Sellers",
+            "subtitle": "Popular items loved by customers",
+            "cta_text": "View All"
+          }
+        },
+        {
+          "type": "collection_banner",
+          "settings": {
+            "title": "Featured Collection",
+            "subtitle": "Handpicked favorites just for you",
+            "cta_text": "Explore"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -46,49 +46,19 @@
   }
 </style>
 
-<div class="collection-with-banner collection-with-banner--{{ section.id }}">
+<div class="collection-with-banner collection-with-banner--{{ section.id }}{% if section.settings.hide_on_mobile %} hidden--mobile{% endif %}{% if section.settings.hide_on_desktop %} hidden--desktop{% endif %}">
   <div class="collection-with-banner__container">
-    <div class="collection-with-banner__content {% if section.settings.banner_position == 'right' %} collection-with-banner__content--right {% endif %}">
-      <div class="collection__banner">
-        <div class="collection__banner-image">
-          {%- if section.settings.collection_image -%}
-            <img
-              src="{{ section.settings.collection_image | image_url: width: 1200 }}"
-              width="{{ section.settings.collection_image.width }}"
-              height="{{ section.settings.collection_image.height }}"
-              alt="{{ section.settings.collection_image.alt }}"
-              class="collection__image"
-            >
-          {%- endif -%}
-        </div>
-        <div class="collection__banner-content">
-          <div class="collection__content">
-            {%- if section.settings.title != blank -%}
-              <h2 class="collection__title" style="--heading-color: {{ section.settings.heading_color }};">
-                {{ section.settings.title }}
-              </h2>
-            {%- endif -%}
-
-            {%- if section.settings.subtitle != blank -%}
-              <h3 class="collection__subtitle" style="--subtitle-color: {{ section.settings.subtitle_color }};">
-                {{ section.settings.subtitle }}
-              </h3>
-            {%- endif -%}
-
-            {%- if section.settings.collection != blank -%}
-              <div class="collection__view-all">
-                <a
-                  href="{{ section.settings.cta_url }}"
-                  class="button button-secondary"
-                  aria-label="View All"
-                >
-                  {{ section.settings.cta_text }}
-                </a>
-              </div>
-            {%- endif -%}
-          </div>
-        </div>
-      </div>
+    <div class="collection-with-banner__content{% if section.settings.banner_position == 'right' %} collection-with-banner__content--right {% endif %}">
+      {% render 'collection-banner',
+        collection_image: section.settings.collection_image,
+        title: section.settings.title,
+        subtitle: section.settings.subtitle,
+        heading_color: section.settings.heading_color,
+        subtitle_color: section.settings.subtitle_color,
+        collection: section.settings.collection,
+        cta_text: section.settings.cta_text,
+        cta_url: section.settings.cta_url
+      %}
       
       {%- if section.settings.collection != blank and section.settings.collection.products.size > 0 -%}
         <div class="collection-with-banner__products">
@@ -422,6 +392,18 @@
         }
       ],
       "default": "page-width"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on desktop",
+      "default": false
     }
   ],
   "presets": [

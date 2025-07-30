@@ -998,14 +998,14 @@ h5,
 h6,
 .h6.h6,
 .text-block.h6 > * {
-  font-family: var(--font-h6--family);
-  font-style: var(--font-h6--style);
-  font-weight: var(--font-h6--weight);
-  font-size: var(--font-h6--size);
-  line-height: var(--font-h6--line-height);
-  letter-spacing: var(--font-h6--letter-spacing);
-  text-transform: var(--font-h6--case);
-  color: var(--color, var(--font-h6-color));
+  font-family: "EditorsNote", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+  color: #393939;
 }
 
 @media screen and (max-width: 1200px) {

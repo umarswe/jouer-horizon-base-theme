@@ -1,0 +1,40 @@
+<div class="collection__banner">
+  <div class="collection__banner-image">
+    {%- if collection_image -%}
+      <img
+        src="{{ collection_image | image_url: width: 1200 }}"
+        width="{{ collection_image.width }}"
+        height="{{ collection_image.height }}"
+        alt="{{ collection_image.alt }}"
+        class="collection__image"
+      >
+    {%- endif -%}
+  </div>
+  <div class="collection__banner-content">
+    <div class="collection__content">
+      {%- if title != blank -%}
+        <h2 class="collection__title" style="--heading-color: {{ heading_color }};">
+          {{ title }}
+        </h2>
+      {%- endif -%}
+
+      {%- if subtitle != blank -%}
+        <h3 class="collection__subtitle" style="--subtitle-color: {{ subtitle_color }};">
+          {{ subtitle }}
+        </h3>
+      {%- endif -%}
+
+      {%- if collection != blank -%}
+        <div class="collection__view-all">
+          <a
+            href="{{ cta_url }}"
+            class="button button-secondary"
+            aria-label="View All"
+          >
+            {{ cta_text }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
