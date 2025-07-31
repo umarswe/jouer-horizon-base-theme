@@ -4,6 +4,13 @@
   fetchpriority="low"
 ></script>
 
+{% style %}
+  .product-recommendations h3{
+    @media screen and (max-width: 749px) {
+      font-size: 2.4rem;
+  }
+{% endstyle %}
+
 {% liquid
   case section.settings.layout_type
     when 'grid'

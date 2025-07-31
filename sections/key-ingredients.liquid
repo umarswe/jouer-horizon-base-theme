@@ -14,6 +14,10 @@
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 1rem;
+
+    @media screen and (max-width: 749px) {
+      gap: 3rem;
+    }
   }
 
   .key-ingredients__item {
@@ -23,12 +27,25 @@
     align-items: center;
     justify-content: flex-start;
     gap: 1rem;
+
+    @media screen and (max-width: 749px) {
+      width: 100%;
+      min-width: 0;
+      gap: 0;
+    }
   }
+
+
 
   .key-ingredients__item-image {
     width: 20rem;
     height: 100%;
     max-height: 13rem;
+    flex-shrink: 0;
+
+    @media screen and (max-width: 749px) {
+      width: 15rem;
+    }
 
     img {
       width: 100%;
@@ -38,7 +55,7 @@
   }
 
   .key-ingredients__item-title {
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
     font-size: 14px;
     line-height: 1.5;
     letter-spacing: 4px;
@@ -54,32 +71,43 @@
     text-transform: uppercase;
     margin-top: 0.5rem;
   }
+
+  .key-ingredients__item-content p {
+    @media screen and (max-width: 749px) {
+      font-size: 1.4rem;
+      line-height: 2rem;
+      letter-spacing: 0.6px;
+      font-weight: 400;
+    }
+  }
 {% endstyle %}
 
-<div class="key-ingredients">
-  <div class="key-ingredients__container">
-    <div class="key-ingredients__grid">
-      {% for key_ingredient in product.metafields.custom.key_ingredients_listing.value %}
-        <div class="key-ingredients__item">
-          <div class="key-ingredients__item-image">
-            <img
-              src="{{ key_ingredient.desktop_image | image_url: width: 500 }}"
-              width="200"
-              height="200"
-              alt="Key Ingredient Image"
-            >
+{% if product.metafields.custom.key_ingredients_listing.value %}
+  <div class="key-ingredients">
+    <div class="key-ingredients__container">
+      <div class="key-ingredients__grid">
+        {% for key_ingredient in product.metafields.custom.key_ingredients_listing.value %}
+          <div class="key-ingredients__item">
+            <div class="key-ingredients__item-image">
+              <img
+                src="{{ key_ingredient.desktop_image | image_url: width: 500 }}"
+                width="200"
+                height="200"
+                alt="Key Ingredient Image"
+              >
+            </div>
+            <div class="key-ingredients__item-content">
+              <h3 class="key-ingredients__item-title">{{ key_ingredient.title }}</h3>
+              <p class="key-ingredients__item-description">
+                {{ key_ingredient.desktop_description | metafield_tag }}
+              </p>
+            </div>
           </div>
-          <div class="key-ingredients__item-content">
-            <h3 class="key-ingredients__item-title">{{ key_ingredient.title }}</h3>
-            <p class="key-ingredients__item-description">
-              {{ key_ingredient.desktop_description | metafield_tag }}
-            </p>
-          </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
   </div>
-</div>
+{% endif %}
 
 {% schema %}
 {

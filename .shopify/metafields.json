@@ -4,19 +4,19 @@
   "brand": [],
   "collection": [
     {
-      "key": "display_name",
+      "key": "display_description",
       "namespace": "custom",
-      "name": "Display Name",
+      "name": "Display Description",
       "description": "",
       "type": {
-        "name": "rich_text_field",
+        "name": "single_line_text_field",
         "category": "TEXT"
       }
     },
     {
-      "key": "display_description",
+      "key": "display_title",
       "namespace": "custom",
-      "name": "Display Description",
+      "name": "Display Title",
       "description": "",
       "type": {
         "name": "single_line_text_field",

@@ -155,7 +155,7 @@ select {
   will-change: auto;
 }
 
-@media (any-pointer: fine) and (prefers-reduced-motion: no-preference) {
+/* @media (any-pointer: fine) and (prefers-reduced-motion: no-preference) {
   .card-hover-effect-lift .product-card:hover,
   .card-hover-effect-lift .collection-card:hover,
   .card-hover-effect-lift .resource-card:hover,
@@ -256,7 +256,7 @@ select {
     transform: none;
     box-shadow: none;
   }
-}
+} */
 
 dialog {
   /* the ::backdrop inherits from the originating element, custom properties must be set on the dialog element */
@@ -772,6 +772,16 @@ p:empty {
   object-fit: contain;
 }
 
+.header__icon .svg-wrapper {
+  width: 4rem !important;
+  height: 4rem !important;
+
+  svg {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+}
+
 .svg-wrapper {
   color: currentcolor;
   display: inline-flex;
@@ -956,14 +966,14 @@ h3,
 h4,
 .h4.h4,
 .text-block.h4 > * {
-  font-family: var(--font-h4--family);
-  font-style: var(--font-h4--style);
-  font-weight: var(--font-h4--weight);
-  font-size: var(--font-h4--size);
-  line-height: var(--font-h4--line-height);
-  letter-spacing: var(--font-h4--letter-spacing);
-  text-transform: var(--font-h4--case);
-  color: var(--color, var(--font-h4-color));
+  font-family: "EditorsNote", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+  letter-spacing: 0.8px;
+  text-transform: capitalize;
+  color: #393939;
 }
 
 @media screen and (max-width: 1200px) {
@@ -1358,9 +1368,8 @@ results-list[initialized] {
   border: none;
   box-shadow: var(--shadow-popover);
 
-  @media screen and (min-width: 750px) {
-    border-radius: var(--style-border-radius-popover);
-    max-width: var(--normal-content-width);
+  @media screen and (width >= 750px) {
+    max-width: 100%;
   }
 
   @media screen and (max-width: 749px) {
@@ -2788,16 +2797,12 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
   justify-content: space-between;
   align-items: center;
   color: var(--color-input-text);
-  background-color: var(--color-input-background);
-  border: var(--style-border-width-inputs) solid var(--color-input-border);
-  border-radius: var(--style-border-radius-inputs);
+  /* background-color: var(--color-input-background); */
+  /* border: var(--style-border-width-inputs) solid var(--color-input-border); */
+  /* border-radius: var(--style-border-radius-inputs); */
   flex: 1 1 var(--quantity-selector-width);
   align-self: stretch;
   transition: background-color var(--animation-speed) var(--animation-easing);
-
-  &:hover {
-    background-color: var(--color-input-hover-background);
-  }
 }
 
 .product-form-buttons:has(.add-to-cart-button.button-secondary)
@@ -2814,18 +2819,20 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  width: var(--minimum-touch-target);
-  height: var(--minimum-touch-target);
+  width: 1.6rem;
+  height: 1.6rem;
   flex-shrink: 0;
   color: var(--color-input-text);
 }
 
 .quantity-selector .quantity-minus {
+  font-size: 1.6rem !important;
   border-start-start-radius: var(--style-border-radius-inputs);
   border-end-start-radius: var(--style-border-radius-inputs);
 }
 
 .quantity-selector .quantity-plus {
+  font-size: 1.6rem !important;
   border-start-end-radius: var(--style-border-radius-inputs);
   border-end-end-radius: var(--style-border-radius-inputs);
 }
@@ -2842,6 +2849,16 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
 .product-details .quantity-selector .quantity-plus {
   border-start-end-radius: var(--style-border-radius-buttons-primary);
   border-end-end-radius: var(--style-border-radius-buttons-primary);
+}
+
+.quantity-selector .quantity-input {
+  font-size: 1.3rem;
+  line-height: normal;
+  letter-spacing: normal;
+  font-weight: 400;
+  color: #393939;
+  font-family: "Helvetica Neue", sans-serif;
+  text-align: center;
 }
 
 .quantity-selector .svg-wrapper {
@@ -3886,10 +3903,9 @@ slideshow-controls:has(.slideshow-controls__dots) {
     }
 
     &:is([aria-selected="true"]) {
-      outline: var(--focus-outline-width) solid currentcolor;
+      outline: 1px solid #fff;
       outline-offset: calc(var(--focus-outline-offset) / 2);
-      border: var(--style-border-width) solid
-        rgba(from var(--color-border) r g b / var(--media-border-opacity));
+      border: 1px solid #fff;
     }
   }
 }
@@ -4339,7 +4355,7 @@ slideshow-arrows .slideshow-control.slideshow-control--style-none {
 
 /* Flex behavior for height variants */
 .layout-panel-flex--column > .group-block--height-fit {
-  flex: 0 1 auto;
+  flex: 1 1 auto;
 }
 
 .layout-panel-flex--column > .group-block--height-fill {

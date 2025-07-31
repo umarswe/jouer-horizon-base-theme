@@ -41,8 +41,12 @@
           {{- 'icon-add-to-cart.svg' | inline_asset_content -}}
         </span>
       {% endif %}
-      <span class="add-to-cart-text__content{% if icon_only_on_mobile %} is-visually-hidden-mobile{% endif %}">
+      <span class="add-to-cart-text__content add-to-cart-text__content--desktop{% if icon_only_on_mobile %} is-visually-hidden-mobile{% endif %}">
         ADD TO BAG | {{ product.price | money }}
+      </span>
+
+      <span class="add-to-cart-text__content add-to-cart-text__content--mobile {% if icon_only_on_mobile %} is-visually-hidden-mobile{% endif %}">
+        ADD | {{ product.price | money }}
       </span>
     </span>
     <span
@@ -114,6 +118,24 @@
     to {
       transform: translateY(-1em);
       opacity: 0;
+    }
+  }
+
+  .add-to-cart-text__content--desktop {
+    display: block;
+  }
+
+  .add-to-cart-text__content--mobile {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .add-to-cart-text__content--mobile {
+      display: block;
+    }
+
+    .add-to-cart-text__content--desktop {
+      display: none;
     }
   }
 {% endstylesheet %}

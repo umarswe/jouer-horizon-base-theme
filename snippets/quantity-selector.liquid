@@ -38,6 +38,7 @@
   </button>
   <input
     type="number"
+    class="quantity-input"
     name="{% if line_index %}updates[]{% else %}quantity{% endif %}"
     value="{{ in_cart_quantity | default: 1 }}"
     min="{{ min | default: 1 }}"

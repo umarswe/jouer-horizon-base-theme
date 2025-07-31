@@ -20,17 +20,17 @@
             "media_columns": "two",
             "image_gap": 4,
             "large_first_image": false,
-            "icons_style": "none",
-            "slideshow_controls_style": "counter",
-            "slideshow_mobile_controls_style": "dots",
+            "icons_style": "arrow",
+            "slideshow_controls_style": "thumbnails",
+            "slideshow_mobile_controls_style": "hint",
             "thumbnail_position": "right",
             "thumbnail_width": 90,
-            "aspect_ratio": "1/1",
+            "aspect_ratio": "adapt",
             "media_radius": 0,
             "extend_media": false,
             "zoom": true,
             "video_loop": false,
-            "hide_variants": true,
+            "hide_variants": false,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -42,6 +42,8 @@
           "type": "_product-details",
           "static": true,
           "settings": {
+            "gap": 0,
+            "sticky_details_desktop": false,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -59,10 +61,10 @@
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
-            "padding-block-start": 24,
-            "padding-block-end": 24,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 80,
+            "padding-inline-end": 80
           },
           "blocks": {
             "group_icgrde": {
@@ -78,7 +80,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
+                "gap": 0,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -112,9 +114,9 @@
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
-                    "type_preset": "h3",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
+                    "type_preset": "h4",
+                    "font": "var(--font-primary--family)",
+                    "font_size": "",
                     "line_height": "normal",
                     "letter_spacing": "normal",
                     "case": "none",
@@ -124,7 +126,7 @@
                     "background_color": "#00000026",
                     "corner_radius": 0,
                     "padding-block-start": 0,
-                    "padding-block-end": 0,
+                    "padding-block-end": 8,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
                   },
@@ -182,49 +184,21 @@
                 "variant_style": "buttons",
                 "show_swatches": false,
                 "alignment": "left",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
+                "padding-block-start": 20,
+                "padding-block-end": 20,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
               "blocks": {}
             },
-            "buy_buttons_eYQEYi": {
-              "type": "buy-buttons",
+            "simple_add_to_cart_7Ankfz": {
+              "type": "simple-add-to-cart",
+              "name": "Simple Add to Cart",
               "settings": {
-                "stacking": true,
-                "show_pickup_availability": false,
-                "gift_card_form": true,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "product": "{{ closest.product }}",
+                "style_class": "button"
               },
-              "blocks": {
-                "quantity": {
-                  "type": "quantity",
-                  "disabled": true,
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                },
-                "add-to-cart": {
-                  "type": "add-to-cart",
-                  "static": true,
-                  "settings": {
-                    "style_class": "button"
-                  },
-                  "blocks": {}
-                },
-                "accelerated-checkout": {
-                  "type": "accelerated-checkout",
-                  "disabled": true,
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                }
-              },
-              "block_order": []
+              "blocks": {}
             },
             "accordion_x7DUf3": {
               "type": "accordion",
@@ -239,7 +213,7 @@
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
-                "padding-block-start": 0,
+                "padding-block-start": 10,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
@@ -367,20 +341,21 @@
           "block_order": [
             "group_icgrde",
             "variant_picker_R3rGDr",
-            "buy_buttons_eYQEYi",
+            "simple_add_to_cart_7Ankfz",
             "accordion_x7DUf3"
           ]
         }
       },
       "settings": {
-        "content_width": "content-center-aligned",
+        "product": "{{ closest.product }}",
+        "content_width": "content-full-width",
         "desktop_media_position": "left",
         "equal_columns": false,
         "limit_details_width": false,
-        "gap": 48,
+        "gap": 0,
         "color_scheme": "",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "padding-block-start": 36,
+        "padding-block-end": 12
       }
     },
     "key_ingredients_QVBAee": {
@@ -406,7 +381,7 @@
             "video": "shopify://files/videos/Jouer Cosmetics HD 720p Video.mp4",
             "title": "Hydration for Days",
             "description": "A gorgeous cocktail of beautiful oils come together to nourish lips while creating natural shine and slip. Apricot oil is rich in vitamins, antioxidants and fatty acids to replenish, while jojoba oil locks in moisture. Vitamin E acts as a natural conditioner, keeping lips looking plump and healthy.",
-            "image_position": "bottom"
+            "image_position": "top"
           }
         }
       },
@@ -416,7 +391,11 @@
       ],
       "name": "Section Info Media",
       "settings": {
-        "title": "Why We Love It"
+        "title": "Why We Love It",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "padding_top_mobile": 50,
+        "padding_bottom_mobile": 50
       }
     },
     "section_quote_with_image_xDEy38": {
@@ -428,7 +407,12 @@
         "quote": "<p>“This lip oil has everything I want—shine and subtle color in a formula that actually improves the condition of the lips.”</p>",
         "author": "CHRISTINA ZILBER",
         "author_position": "Founder & Creative Director",
-        "media_position": "right"
+        "media_position": "right",
+        "content_position": "bottom",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 50
       }
     },
     "product_recommendations_qggXJq": {

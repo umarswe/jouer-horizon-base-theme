@@ -116,6 +116,7 @@
 {% stylesheet %}
   .simple-add-to-cart-block {
     width: 100%;
+    margin-top: auto;
   }
 
   .simple-add-to-cart-block .add-to-cart-button {
@@ -151,6 +152,10 @@
     font-family: "Helvetica Neue", Arial, sans-serif;
     line-height: 12px;
     letter-spacing: 2px;
+
+    @media screen and (max-width: 749px) {
+      font-size: 10px;
+    }
   }
 
   /* Hide the bag icon */

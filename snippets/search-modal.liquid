@@ -26,7 +26,7 @@
 {% stylesheet %}
   /* Search modal style */
   .search-modal {
-    --search-border-radius: var(--style-border-radius-popover);
+    --search-border-radius: 0;
     --search-border-width: var(--style-border-width);
   }
 
@@ -37,16 +37,21 @@
   }
 
   .search-modal__content {
-    /* Approx set the top so when the content is at max height, the modal is centered */
-    --modal-top-margin: calc(50dvh - var(--modal-max-height) / 2 - 2rem);
-    --modal-width: 66dvw;
-
+    --modal-width: 100%;
+    
+    width: 100% !important;
+    height: 100vh !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
     padding: 0;
-    border: var(--style-border-popover);
-
-    @media screen and (min-width: 750px) {
-      width: var(--modal-width);
-      margin-block-start: var(--modal-top-margin);
+    background-color: #fff;
+    border-radius: 0 !important;
+    
+    @media screen and (width >= 750px) {
+      width: 100% !important;
+      height: 100vh !important;
+      margin-block-start: 0 !important;
       overflow: hidden;
     }
   }
@@ -61,11 +66,12 @@
   .dialog-modal[open].search-modal__content {
     transform-origin: bottom center;
     animation: search-element-slide-in-bottom 300ms var(--ease-out-quad) forwards;
-    border-radius: var(--search-border-radius);
-    box-shadow: var(--shadow-popover);
+    border-radius: 0 !important;
+    box-shadow: none;
+    background-color: #fff;
 
-    @media screen and (max-width: 749px) {
-      border-radius: 0;
+    @media screen and (width < 750px) {
+      border-radius: 0 !important;
     }
   }
 
@@ -79,6 +85,11 @@
 
   .search-modal__content :is(.predictive-search-dropdown, .predictive-search-form__content-wrapper) {
     position: relative;
+  }
+
+  /* Hide recently viewed section in search modal */
+  .search-modal .recently-viewed-wrapper {
+    display: none !important;
   }
 
   /* Predictive search header tweaks for small screens */

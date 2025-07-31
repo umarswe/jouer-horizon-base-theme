@@ -17,39 +17,50 @@
     color: #393939;
     font-weight: 400;
     font-style: italic;
+    padding: 0 2rem;
   }
 
   .section-info-media__container {
     max-width: 140rem;
     margin: 0 auto;
-    padding: 0 2rem;
   }
 
   .section-info-media__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
     gap: 1.5rem;
+
+    @media screen and (max-width: 749px) {
+      flex-direction: column;
+    }
   }
 
   .section-info-media__item {
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 3rem;
+
+    @media screen and (max-width: 749px) {
+      width: 100%;
+    }
   }
 
-  .section-info-media__item--top {
+  .section-info-media__item:nth-child(odd) {
     flex-direction: column-reverse;
   }
 
-  .section-info-media__item--bottom {
-    flex-direction: column;
+  @media screen and (max-width: 749px) {
+    .section-info-media__item:nth-child(even) {
+      flex-direction: column-reverse;
+    }
   }
 
   .section-info-media__item-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 0 2rem;
   }
 
   .section-info-media__item-title {
@@ -85,7 +96,7 @@
     <h2 class="section-info-media__title">{{ section.settings.title }}</h2>
     <div class="section-info-media__grid">
       {% for block in section.blocks %}
-        <div class="section-info-media__item section-info-media__item--{{ block.settings.image_position }}">
+        <div class="section-info-media__item">
           <div class="section-info-media__item-image">
             {% if block.settings.image %}
               {{ block.settings.image | image_url: width: 500 | image_tag: class: 'section-info-media__item-image-img' }}
@@ -181,22 +192,6 @@
           "type": "text",
           "id": "description",
           "label": "Description"
-        },
-        {
-          "type": "select",
-          "id": "image_position",
-          "label": "Image Position",
-          "options": [
-            {
-              "value": "top",
-              "label": "Top"
-            },
-            {
-              "value": "bottom",
-              "label": "Bottom"
-            }
-          ],
-          "default": "top"
         }
       ]
     }
