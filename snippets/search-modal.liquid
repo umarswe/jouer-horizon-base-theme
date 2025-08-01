@@ -15,11 +15,27 @@
     class="search-modal__content dialog-modal"
     scroll-lock
   >
-    {% render 'predictive-search',
-      input_id: 'cmdk-input',
-      search_test_id: 'search-component--modal',
-      products_test_id: 'products-list-default--modal'
-    %}
+    <div class="search-modal__container">
+      <div class="search-modal__header">
+        <h2 class="search-modal__title">What can we help you find?</h2>
+        <button
+          type="button"
+          class="search-modal__close-button"
+          aria-label="{{ 'accessibility.close_dialog' | t }}"
+          on:click="dialog-component/closeDialog"
+        >
+          <span class="svg-wrapper">
+            {{ 'icon-close.svg' | inline_asset_content }}
+          </span>
+        </button>
+      </div>
+      {% render 'predictive-search',
+        search_style: 'modal',
+        input_id: 'cmdk-input',
+        search_test_id: 'search-component--modal',
+        products_test_id: 'products-list-default--modal'
+      %}
+    </div>
   </dialog>
 </dialog-component>
 
@@ -45,7 +61,7 @@
     max-height: none !important;
     margin: 0 !important;
     padding: 0;
-    background-color: #fff;
+    background-color: #ffffff;
     border-radius: 0 !important;
     
     @media screen and (width >= 750px) {
@@ -54,6 +70,121 @@
       margin-block-start: 0 !important;
       overflow: hidden;
     }
+  }
+
+  .search-modal__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    padding-top: 3rem;
+    
+    @media screen and (width < 750px) {
+      padding-top: 1.5rem;
+    }
+  }
+
+  .search-modal__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2.5rem;
+  }
+
+  .search-modal__title {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 25px;
+    line-height: 34px;
+    letter-spacing: 0px;
+    font-weight: 300;
+    font-style: normal;
+    text-transform: none;
+    text-align: center;
+    color: #000;
+    margin: 0;
+  }
+
+  .search-modal__close-button {
+    position: absolute;
+    top: -40%;
+    right: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--minimum-touch-target);
+    height: var(--minimum-touch-target);
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--color-foreground);
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: rgba(from var(--color-foreground) r g b / 10%);
+    }
+
+    &:active {
+      transform: scale(0.9);
+      transition: transform 100ms var(--animation-timing-active);
+    }
+
+    .svg-wrapper,
+    svg {
+      width: var(--icon-size-md);
+      height: var(--icon-size-md);
+    }
+  }
+
+  /* Center the search component but limit input width */
+  .search-modal predictive-search-component {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Search input styling for modal - only input has max-width */
+  .search-modal .predictive-search-form__header-inner {
+    max-width: 52rem;
+    border: 1px solid #dddddd;
+    border-radius: 0;
+    background-color: #ffffff;
+    margin: 0 auto;
+  }
+
+  .search-modal .search-input {
+    max-width: 52rem;
+    padding-left: calc(var(--icon-size-lg) + var(--margin-xl) * 1.5);
+    padding-right: var(--padding-lg);
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  /* Search icon back inside the input on the left */
+  .search-modal .predictive-search__icon {
+    right: auto;
+  }
+
+  /* Hide the predictive search close button since we have our own */
+  .search-modal .predictive-search__close-modal-button {
+    display: none !important;
+  }
+
+  /* Search results should be full width */
+  .search-modal .predictive-search-form__content-wrapper {
+    width: 100%;
+    max-width: none;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .search-modal .predictive-search-results__inner {
+    width: 100%;
+    max-width: none;
   }
 
   /* Hide the default dialog backdrop on small screens */
@@ -68,7 +199,7 @@
     animation: search-element-slide-in-bottom 300ms var(--ease-out-quad) forwards;
     border-radius: 0 !important;
     box-shadow: none;
-    background-color: #fff;
+    background-color: #ffffff;
 
     @media screen and (width < 750px) {
       border-radius: 0 !important;

@@ -583,61 +583,45 @@
             country_style: section.settings.country_selector_style
           %}
         {%- endif -%}
-      </div>
-
-      {% liquid
-        if block_settings.menu_style == 'featured_collections'
-          assign top_level_featured_collections = linklist.links | where: 'type', 'collection_link'
-        endif
-
-        if eager_loading and block_settings.menu_style == 'featured_products'
-          for link in linklist.links
-            if link.type == 'collection_link'
-              assign collection_linklist = link
-              assign top_level_featured_products_collection = collection_linklist.object
-              break
-            elsif link.type == 'catalog_link' or link.type == 'collections_link'
-              assign top_level_featured_products_collection = collections.all
-              break
-            endif
-          endfor
-        endif
-      -%}
-      {% if top_level_featured_collections.size > 0 or top_level_featured_products_collection.products_count > 0 %}
-        <div
-          class="menu-drawer__featured-content"
-          style="--menu-drawer-animation-index: {{ linklist.links.size | plus: 1 }};"
-        >
-          <ul class="menu-drawer__featured-content-list menu-drawer__animated-element list-unstyled">
-            {% if top_level_featured_collections.size > 0 %}
-              {%- for collection in top_level_featured_collections limit: max_featured_items -%}
-                <li class="menu-drawer__featured-content-list-item menu-drawer__featured-content-list-item--collection">
-                  {% render 'resource-card',
-                    resource: collection.object,
-                    resource_type: 'collection',
-                    style: 'overlay',
-                    image_aspect_ratio: ratio,
-                    image_sizes: 'auto, 400px'
-                  %}
-                </li>
-              {%- endfor -%}
-            {% elsif top_level_featured_products_collection.products_count > 0 %}
-              {% paginate top_level_featured_products_collection.products by max_featured_items %}
-                {%- for product in top_level_featured_products_collection.products limit: max_featured_items -%}
-                  <li class="menu-drawer__featured-content-list-item menu-drawer__featured-content-list-item--product">
-                    {% render 'resource-card',
-                      resource: product,
-                      resource_type: 'product',
-                      image_aspect_ratio: ratio,
-                      image_sizes: 'auto, 400px'
-                    %}
-                  </li>
-                {%- endfor -%}
-              {% endpaginate %}
-            {% endif %}
-          </ul>
+        
+        <!-- Add footer logo at the bottom of drawer -->
+        <div class="menu-drawer__footer-section">
+          <div class="menu-drawer__footer-logo">
+            <a href="{{ routes.root_url }}" class="menu-drawer__logo-link">
+              {% render 'jouer-logo', class: 'menu-drawer__logo-image', width: 80 %}
+            </a>
+          </div>
+          
+          <!-- Add footer social icons -->
+          <div class="menu-drawer__social-icons">
+            <a href="https://www.instagram.com/shopify/#" target="_blank" rel="noopener noreferrer" class="menu-drawer__social-link">
+              <svg class="menu-drawer__social-icon" viewBox="0 0 20 20">
+                {% render 'icon', icon: 'instagram' %}
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/shopify" target="_blank" rel="noopener noreferrer" class="menu-drawer__social-link">
+              <svg class="menu-drawer__social-icon" viewBox="0 0 20 20">
+                {% render 'icon', icon: 'facebook' %}
+              </svg>
+            </a>
+            <a href="https://www.tiktok.com/@shopify" target="_blank" rel="noopener noreferrer" class="menu-drawer__social-link">
+              <svg class="menu-drawer__social-icon" viewBox="0 0 20 20">
+                {% render 'icon', icon: 'tiktok' %}
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/shopify" target="_blank" rel="noopener noreferrer" class="menu-drawer__social-link">
+              <svg class="menu-drawer__social-icon" viewBox="0 0 20 20">
+                {% render 'icon', icon: 'youtube' %}
+              </svg>
+            </a>
+            <a href="https://x.com/shopify" target="_blank" rel="noopener noreferrer" class="menu-drawer__social-link">
+              <svg class="menu-drawer__social-icon" viewBox="0 0 20 20">
+                {% render 'icon', icon: 'x' %}
+              </svg>
+            </a>
+          </div>
         </div>
-      {% endif %}
+      </div>
     </div>
     <div
       class="menu-drawer__backdrop"
@@ -693,6 +677,10 @@
     }
   }
 
+  .header-drawer-icon--close {
+    background-color: transparent !important;
+  }
+
   details:not([open]) .header__icon--menu .header-drawer-icon--close {
     display: none;
   }
@@ -728,6 +716,7 @@
     border-right: var(--style-border-drawer);
     box-shadow: var(--shadow-drawer);
     flex-direction: column;
+    padding: 1.4rem 2.4rem;
 
     @media screen and (min-width: 750px) {
       width: 25rem;
@@ -805,12 +794,10 @@
   }
 
   .menu-drawer__menu {
-    --menu-drawer-inline-padding: calc(var(--padding-sm) + 7px);
-
     list-style: none;
-    padding-inline: var(--drawer-padding);
-    margin-inline: 0;
-    margin-block-start: 0;
+    padding: 0;
+    margin: 0;
+    margin-top: 2.5rem !important;
   }
 
   .menu-drawer__menu--grid {
@@ -992,37 +979,18 @@
     object-fit: cover;
   }
 
-  /* Fix alignment for collection image mode links without images in drawer */
-
-  /* Target menu items in grids that have images */
-  .menu-drawer__menu--grid:has(.menu-drawer__link-image) .menu-drawer__menu-item:not(:has(> .menu-drawer__link-image)) {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    row-gap: var(--padding-3xs);
-    padding: 0;
-  }
-
-  .menu-drawer__menu--grid:has(.menu-drawer__link-image)
-    .menu-drawer__menu-item:not(:has(> .menu-drawer__link-image))::before {
-    content: '';
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background-color: var(--color-foreground-muted);
-    opacity: 0.1;
-    border-radius: var(--menu-image-border-radius);
-  }
-
   .menu-drawer__close-button {
-    position: relative;
-    right: auto;
-    top: auto;
-    width: fit-content;
-    height: fit-content;
-    padding: var(--padding-lg);
+    background-color: transparent !important;
+    color: var(--color-foreground);
+    padding: 0 !important;
+    box-shadow: none;
     will-change: transform;
+  }
+
+  .menu-drawer__close-button .svg-wrapper,
+  .menu-drawer__close-button svg {
+    width: 2rem;
+    height: 2rem;
   }
 
   .menu-drawer__back-button {
@@ -1044,6 +1012,15 @@
   .menu-drawer__menu-item-text {
     overflow: hidden;
     text-overflow: ellipsis;
+
+    font-family: "EditorsNote", sans-serif;
+    padding: 1.1rem 0;
+    color: #393939;
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.6px;
+    line-height: 2.6rem;
   }
 
   /** Styles when the country selector is hidden */
@@ -1101,6 +1078,63 @@
     margin-block: auto var(--padding-sm);
     margin-inline-start: var(--padding-xl);
     background-color: rgb(var(--color-foreground) 0.03);
+  }
+
+  .menu-drawer__footer-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .menu-drawer__footer-logo {
+    display: flex;
+    justify-content: center;
+  }
+
+  .menu-drawer__logo-link {
+    text-decoration: none;
+    color: var(--color-foreground);
+  }
+
+  .menu-drawer__logo-link svg {
+    width: 8rem !important;
+    height: 2.2rem !important;
+    object-fit: contain;
+    margin: 0;
+  }
+
+  .menu-drawer__logo-text {
+    font-size: 1.8rem;
+    font-weight: 600;
+    font-family: var(--font-heading--family);
+  }
+
+  .menu-drawer__social-icons {
+    display: flex;
+    gap: 1.6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .menu-drawer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    color: var(--color-foreground);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .menu-drawer__social-link:hover {
+    color: var(--color-foreground-muted);
+  }
+
+  .menu-drawer__social-icon {
+    width: 2rem !important;
+    height: 2rem !important;
+    fill: #393939;
   }
 
   .menu-drawer__account {

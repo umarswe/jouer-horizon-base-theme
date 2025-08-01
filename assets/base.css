@@ -803,8 +803,8 @@ p:empty {
 }
 
 .svg-wrapper > svg {
-  width: var(--icon-size-sm);
-  height: var(--icon-size-sm);
+  width: 2rem;
+  height: 2rem;
 }
 
 .relative {
@@ -3703,9 +3703,11 @@ slideshow-controls[controls-on-media] {
 
   &[pagination-position="center"] {
     width: 100%;
+    margin-bottom: 3.5rem;
 
     @media screen and (width < 768px) {
-    justify-content: center;
+      justify-content: center;
+      margin-bottom: 0;
     }
   }
 
@@ -4364,6 +4366,33 @@ slideshow-arrows .slideshow-control.slideshow-control--style-none {
 
 .layout-panel-flex--column > .group-block--height-custom {
   flex-basis: var(--size-style-height);
+}
+
+.search-input {
+  width: 100%;
+  color: var(--color-foreground);
+  padding-block: var(--padding-lg);
+  padding-inline: calc(var(--margin-lg) + var(--icon-size-lg)) 0;
+  background: transparent;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  outline: none;
+  border: 0;
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.search-input::placeholder {
+  font-size: 1.3rem;
+  line-height: 2.4rem;
+  letter-spacing: 0;
+  color: #000;
 }
 
 accordion-custom {

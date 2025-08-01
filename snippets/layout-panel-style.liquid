@@ -18,8 +18,7 @@
     assign vertical_alignment = settings.vertical_alignment_flex_direction_column
   endunless
 
-  assign vertical_alignment_mobile = vertical_alignment
-
+  assign vertical_alignment_mobile = settings.vertical_alignment_mobile | default: vertical_alignment
   if settings.vertical_on_mobile and vertical_alignment == 'last baseline'
     assign vertical_alignment_mobile = 'flex-end'
   endif

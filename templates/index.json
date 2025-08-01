@@ -22,7 +22,8 @@
             "content_direction": "row",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-end",
+            "vertical_alignment": "center",
+            "vertical_alignment_mobile": "flex-end",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
@@ -60,7 +61,7 @@
                 "vertical_alignment_flex_direction_column": "center",
                 "gap": 12,
                 "width": "custom",
-                "custom_width": 40,
+                "custom_width": 45,
                 "width_mobile": "fill",
                 "custom_width_mobile": 85,
                 "height": "fit",
@@ -167,10 +168,11 @@
             "image_1": "shopify://shop_images/Jouer-HolidayLP-BottomBanner-Desktop_1.webp",
             "mobile_image_1": "shopify://shop_images/Jouer-HolidayLP-BottomBanner-Mobile.webp",
             "content_position": "center",
-            "content_direction": "column",
+            "content_direction": "row",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-end",
+            "vertical_alignment": "center",
+            "vertical_alignment_mobile": "flex-end",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
@@ -208,7 +210,7 @@
                 "vertical_alignment_flex_direction_column": "center",
                 "gap": 12,
                 "width": "custom",
-                "custom_width": 40,
+                "custom_width": 45,
                 "width_mobile": "fill",
                 "custom_width_mobile": 85,
                 "height": "fit",
@@ -288,7 +290,7 @@
                     "label": "Shop now",
                     "link": "shopify://collections/all",
                     "open_in_new_tab": false,
-                    "style_class": "button-secondary",
+                    "style_class": "button",
                     "width": "fit-content",
                     "custom_width": 100,
                     "width_mobile": "fit-content",
@@ -315,10 +317,11 @@
             "image_1": "shopify://shop_images/Homepage_Banner_-_DESKTOP_-_OPTION_1_-_R1.webp",
             "mobile_image_1": "shopify://shop_images/Homepage_Banner_-_MOBILE_-_OPTION_1_-_R1.webp",
             "content_position": "center",
-            "content_direction": "column",
+            "content_direction": "row",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-end",
+            "vertical_alignment": "center",
+            "vertical_alignment_mobile": "flex-start",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "flex-start",
@@ -1250,30 +1253,31 @@
         "hide_on_desktop": false
       }
     },
-    "slideshow_dC3NzG": {
+    "slideshow_zn6pVc": {
       "type": "slideshow",
       "blocks": {
-        "slide_nenkmP": {
+        "slide_4ETqhi": {
           "type": "_slide",
           "settings": {
             "media_type_1": "image",
             "image_1": "shopify://shop_images/Secondary_Skincare_Banner_Jan_2025.webp",
             "mobile_image_1": "shopify://shop_images/2025.01_Secondary_Skincare_Banner_-_R2_-_MOBILE.webp",
             "content_position": "center",
-            "content_direction": "column",
+            "content_direction": "row",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
+            "vertical_alignment_mobile": "flex-start",
             "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-start",
             "gap": 12,
             "content_background_color": "rgba(0,0,0,0)",
             "content_text_alignment": "left",
             "inherit_color_scheme": true,
             "color_scheme": "",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
+            "toggle_overlay": true,
+            "overlay_color": "rgba(0,0,0,0)",
             "overlay_style": "solid",
             "gradient_direction": "to top",
             "padding-block-start": 0,
@@ -1286,9 +1290,9 @@
             "padding-inline-end-mobile": 0
           },
           "blocks": {
-            "group_cFB4Nr": {
+            "group_kznWYN": {
               "type": "group",
-              "name": "t:names.group",
+              "name": "Slide Content",
               "settings": {
                 "link": "",
                 "open_in_new_tab": false,
@@ -1297,17 +1301,17 @@
                 "horizontal_alignment": "flex-start",
                 "vertical_alignment": "center",
                 "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
+                "horizontal_alignment_flex_direction_column": "center",
                 "vertical_alignment_flex_direction_column": "center",
                 "gap": 12,
-                "width": "fill",
-                "custom_width": 100,
+                "width": "custom",
+                "custom_width": 40,
                 "width_mobile": "fill",
-                "custom_width_mobile": 100,
+                "custom_width_mobile": 85,
                 "height": "fit",
                 "custom_height": 100,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
+                "inherit_color_scheme": false,
+                "color_scheme": "scheme-2",
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
@@ -1319,18 +1323,18 @@
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 50,
-                "padding-inline-end": 0
+                "padding-block-start": 48,
+                "padding-block-end": 48,
+                "padding-inline-start": 48,
+                "padding-inline-end": 48
               },
               "blocks": {
-                "text_CYiijF": {
+                "text_dLAyqw": {
                   "type": "text",
                   "settings": {
-                    "text": "<h2>BEGIN WITH SKIN</h2>",
+                    "text": "<p>GLOW BY DAY, REPAIR BY NIGHT</p>",
                     "width": "fit-content",
-                    "max_width": "narrow",
+                    "max_width": "normal",
                     "alignment": "left",
                     "type_preset": "h2",
                     "font": "var(--font-body--family)",
@@ -1350,36 +1354,35 @@
                   },
                   "blocks": {}
                 },
-                "text_HHqxbP": {
+                "text_jdMjzD": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Unlock your skin’s potential with essentials that deliver luxurious results.</p>",
+                    "text": "<p>Skin Barrier Balm,  a multi-active solid sérum.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
                     "type_preset": "paragraph",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
-                    "line_height": "normal",
+                    "line_height": "loose",
                     "letter_spacing": "normal",
-                    "case": "none",
+                    "case": "uppercase",
                     "wrap": "pretty",
                     "color": "var(--color-foreground)",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
-                    "padding-block-start": 15,
-                    "padding-block-end": 15,
+                    "padding-block-start": 0,
+                    "padding-block-end": 20,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
                   },
                   "blocks": {}
                 },
-                "button_b3GkbU": {
+                "button_yNPRFT": {
                   "type": "button",
-                  "name": "t:names.button",
                   "settings": {
-                    "label": "SHOP SKINCARE",
+                    "label": "Shop now",
                     "link": "shopify://collections/all",
                     "open_in_new_tab": false,
                     "style_class": "button-secondary",
@@ -1392,25 +1395,25 @@
                 }
               },
               "block_order": [
-                "text_CYiijF",
-                "text_HHqxbP",
-                "button_b3GkbU"
+                "text_dLAyqw",
+                "text_jdMjzD",
+                "button_yNPRFT"
               ]
             }
           },
           "block_order": [
-            "group_cFB4Nr"
+            "group_kznWYN"
           ]
         }
       },
       "block_order": [
-        "slide_nenkmP"
+        "slide_4ETqhi"
       ],
       "name": "t:names.slideshow",
       "settings": {
-        "icons_style": "arrows_large",
+        "icons_style": "none",
         "slideshow_controls_style": "dots",
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
         "autoplay": false,
         "autoplay_speed": 4,
         "section_width": "full-width",
@@ -1467,6 +1470,7 @@
             "vertical_on_mobile": false,
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
+            "vertical_alignment_mobile": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "flex-end",
@@ -1651,7 +1655,7 @@
     "section_collection_with_banner_BzK9E3",
     "section_collection_with_banner_8WprU8",
     "section_collection_with_banner_eXxemk",
-    "slideshow_dC3NzG",
+    "slideshow_zn6pVc",
     "section_reviews_BQn9xy",
     "slideshow_zrr73c",
     "visual_ugc_nHqcdq",
