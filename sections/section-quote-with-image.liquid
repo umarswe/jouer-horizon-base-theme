@@ -84,6 +84,11 @@
     width: 100%;
     height: 70rem;
     max-width: 60rem;
+
+    @media screen and (max-width: 749px) {
+      height: 100%;
+      max-width: 100%;
+    }
   }
 
   .section-quote-with-image__video {
@@ -156,9 +161,12 @@
     flex-direction: column;
   }
 
-  .section-quote-with-image__container--bottom {
-    flex-direction: column-reverse;
+  @media screen and (max-width: 749px) {
+    .section-quote-with-image__container--bottom {
+      flex-direction: column-reverse;
+    }
   }
+
 {% endstyle %}
 
 <div class="section-quote-with-image section-quote-with-image--{{ section.id }}">
